@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday 🤍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --accent:#262626;
+  --bg:#fafafa;
+  --card:#ffffff;
+  --text:#262626;
+  --muted:#8e8e8e;
+  --border:#dbdbdb;
+  --blue:#0095f6;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  overflow-x:hidden;
+  position:relative;
+  color:var(--text);
+}
+
+/* ---------- Audio ---------- */
+audio{display:none}
+
+.audio-control{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--blue);
+  color:white;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+  z-index:1000;
+  font-size:1.3rem;
+  transition:all 0.3s;
+}
+
+.audio-control:hover{
+  transform:scale(1.1);
+  background:#1877f2;
+}
+
+/* ---------- Glass Card ---------- */
+.glass{
+  background:var(--card);
+  border-radius:8px;
+  padding:3rem 2.5rem;
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+  position:relative;
+  border:1px solid var(--border);
+}
+
+/* ---------- Modal ---------- */
+.modal{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+  z-index:100;
+}
+
+button{
+  border:none;
+  background:var(--blue);
+  color:white;
+  padding:.7rem 2rem;
+  border-radius:8px;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .2s;
+}
+
+button:hover{
+  background:#1877f2;
+}
+
+button:active{
+  transform:scale(0.98);
+}
+
+/* ---------- Romantic Popup ---------- */
+.popup{
+  position:fixed;
+  top:20%;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--card);
+  padding:1.5rem 2rem;
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.15);
+  display:none;
+  z-index:1000;
+  border:1px solid var(--border);
+  font-size:1rem;
+  color:var(--text);
+  text-align:center;
+  animation:slideDown 0.3s ease;
+}
+
+@keyframes slideDown{
+  from{opacity:0;transform:translate(-50%, -20px)}
+  to{opacity:1;transform:translate(-50%, 0)}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  min-height:30vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  z-index:1001;
+  padding:2rem 1rem;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;
+  color:var(--text);
+  margin:0;
+}
+
+.hero p{
+  font-size:1.1rem;
+  color:var(--muted);
+  margin-top:0.5rem;
+}
+
+/* ---------- Letter ---------- */
+#letter{
+  position:relative;
+  z-index:1001;
+  max-width:700px;
+  margin:0 auto 3rem;
+  padding:2rem;
+  background:var(--card);
+  border-radius:8px;
+  border:1px solid var(--border);
+  box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
+
+#letter p{
+  line-height:1.8;
+  margin-bottom:1.5rem;
+  font-size:1.05rem;
+  color:var(--text);
+}
+
+/* Typewriter cursor */
+.typing-cursor{
+  display:inline-block;
+  width:2px;
+  height:1.2em;
+  background:var(--text);
+  margin-left:2px;
+  animation:blink 1s infinite;
+  vertical-align:text-bottom;
+}
+
+@keyframes blink{
+  0%,49%{opacity:1}
+  50%,100%{opacity:0}
+}
+
+h2{
+  font-family:'Playfair Display',serif;
+  font-size:1.8rem;
+  color:var(--text);
+  margin:0 0 1.5rem 0;
+}
+
+/* ---------- Question ---------- */
+#question{
+  text-align:center;
+}
+
+#noBtn{
+  position:absolute;
+  background:#ed4956;
+  pointer-events:none;
+  cursor:not-allowed;
+}
+
+#noBtn:hover{
+  background:#c13584;
+  transform:scale(0.95);
+}
+
+/* ---------- Floating Words ---------- */
+.floating-word{
+  position:fixed;
+  font-size:20px;
+  font-weight:600;
+  opacity:0.7;
+  pointer-events:none;
+  z-index:999;
+  color:#ff6b9d;
+  text-shadow:0 2px 4px rgba(0,0,0,0.1);
+  animation:floatUp 8s linear forwards;
+}
+
+@keyframes floatUp{
+  0%{
+    transform:translateY(0);
+    opacity:0.7;
+  }
+  50%{
+    opacity:0.9;
+  }
+  100%{
+    transform:translateY(-100vh);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="nmr/Kannukulla (Reprise) - Sai Abhyankkar.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Audio Control Button -->
+<div class="audio-control" id="audioBtn" onclick="toggleAudio()" title="Play/Pause Music">🔊</div>
+
+<!-- Romantic Popup -->
+<div id="popup" class="popup"></div>
+
+<!-- LOGIN -->
+<div class="modal" id="login">
+  <div class="glass">
+    <h2 style="font-family:'Playfair Display'">Who are you?</h2>
+    <br>
+    <button onclick="login('Nayana')">Nayana</button>
+    <button onclick="login('Papu')">Papu</button>
+  </div>
+</div>
+
+<!-- QUESTION -->
+<div class="modal" id="loveGate" style="display:none">
+  <div class="glass" id="question">
+    <h2 style="font-family:'Playfair Display'">Do you still love me?</h2><br>
+    <button onclick="startLetter()">Yes 🤍</button>
+    <button id="noBtn">No</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<section class="hero" id="hero" style="display:none">
+  <div>
+    <h1>Happy Birthday 🤍</h1>
+    <p>A letter meant only for you</p>
+  </div>
+</section>
+
+<section id="letter" style="display:none"></section>
+
+<script>
+const popup = document.getElementById('popup');
+const music = document.getElementById('bgMusic');
+const audioBtn = document.getElementById('audioBtn');
+let isPlaying = false;
+
+// Set volume
+music.volume = 0.4;
+
+// Toggle audio function
+function toggleAudio() {
+  if (isPlaying) {
+    music.pause();
+    audioBtn.innerHTML = '🔇';
+    audioBtn.style.background = '#8e8e8e';
+    isPlaying = false;
+  } else {
+    music.play().then(() => {
+      audioBtn.innerHTML = '🔊';
+      audioBtn.style.background = 'var(--blue)';
+      isPlaying = true;
+    }).catch(e => {
+      console.log('Audio play failed:', e);
+      alert('Please click the speaker icon to play music');
+    });
+  }
+}
+
+// Try to autoplay when user interacts
+function attemptAutoplay() {
+  music.play().then(() => {
+    audioBtn.innerHTML = '🔊';
+    audioBtn.style.background = 'var(--blue)';
+    isPlaying = true;
+  }).catch(e => {
+    console.log('Autoplay prevented - user can click speaker icon');
+    audioBtn.innerHTML = '🔇';
+    audioBtn.style.background = '#8e8e8e';
+  });
+}
+
+function showPopup(text){
+  popup.innerHTML = text;
+  popup.style.display = 'block';
+  setTimeout(() => popup.style.display = 'none', 2500);
+}
+
+function login(name){
+  attemptAutoplay();
+  startFloatingWords(); // Start romantic words animation
+
+  if(name === 'Nayana'){
+    showPopup("Oh no… you don't need to be treated as special,<br>you already are 🤍");
+    return;
+  } else {
+    showPopup("Some names never fade…<br>they stay in the heart 💗");
+  }
+
+  setTimeout(() => {
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('loveGate').style.display = 'flex';
+  }, 1800);
+}
+
+/* Floating romantic words */
+const romanticWords = [
+  '❤️ Love', '💖 Forever', '✨ uiree', '🌹 Romance', '💕 Together',
+  '🌟 Dreams', '💗 Memories', '🤍 Pure', '💫 Papu', '🌺 Noodles mandai',
+  '💝 Thoppai kutty', '🎀 Poonai', '🌸 chellam', '💞 Hearts'
+];
+
+let floatingInterval;
+
+function createFloatingWord() {
+  const word = document.createElement('div');
+  word.className = 'floating-word';
+  word.textContent = romanticWords[Math.floor(Math.random() * romanticWords.length)];
+  
+  // Random horizontal position
+  word.style.left = Math.random() * 90 + 'vw';
+  
+  // Start from bottom
+  word.style.bottom = '-50px';
+  
+  // Random animation duration
+  word.style.animationDuration = (6 + Math.random() * 4) + 's';
+  
+  // Random font size
+  word.style.fontSize = (16 + Math.random() * 12) + 'px';
+  
+  document.body.appendChild(word);
+  
+  // Remove after animation
+  setTimeout(() => word.remove(), 10000);
+}
+
+function startFloatingWords() {
+  // Create words every 600ms
+  floatingInterval = setInterval(createFloatingWord, 600);
+}
+
+/* Runaway NO button - can never be clicked */
+const noBtn = document.getElementById('noBtn');
+
+// Prevent any click on No button
+noBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+});
+
+// Make it run away on mouse move
+document.addEventListener('mousemove', e => {
+  const r = noBtn.getBoundingClientRect();
+  if(Math.abs(e.clientX - (r.left + r.width/2)) < 120){
+    noBtn.style.left = Math.random() * 300 + 'px';
+    noBtn.style.top = Math.random() * 150 + 'px';
+  }
+});
+
+// Make it run away on touch (mobile)
+noBtn.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  noBtn.style.left = Math.random() * 300 + 'px';
+  noBtn.style.top = Math.random() * 150 + 'px';
+});
+
+/* Letter - Character-by-character typewriter effect */
+const lines = [
+  "We started as friends, and we ended as friends 🤍",
+  "All those years, we assured and cared for our future goals, and in that process, we lost our gift—the present 🎁",
+  "I am happy that we still care for each other, and I hope we still hold the same priority in each other's lives 🌱",
+  "Our nicknames, our fights, and our favorite spot will always remain in my memories of you 📍",
+  "It's been more than three years. We moved on in our separate ways, but I still wonder how we got separated so soon ⏳",
+  "My words and actions were never meant to hurt you. That was my way of love—what I knew, what I saw, what I learned. It may have been wrong 💭",
+  "We can question ourselves a thousand times about why it happened. Maybe the answer is that it had to happen—to teach us how true love looks and feels ❤️",
+  "One thing is certain: I will always be with you. I will care for you, console you, and wish that you are successful in life and lead a happy one 🤗",
+  "I wish you a bright future, a healthy life, and a romantic partner who will walk with you toward the best future ahead ✨",
+  "Happy Birthday 🎉"
+];
+
+let currentLine = 0;
+let currentChar = 0;
+let currentP = null;
+
+function startLetter(){
+  document.getElementById('loveGate').style.display = 'none';
+  document.getElementById('hero').style.display = 'flex';
+  document.getElementById('letter').style.display = 'block';
+
+  const el = document.getElementById('letter');
+  el.innerHTML = '';
+  currentLine = 0;
+  currentChar = 0;
+  
+  typeCharacter();
+}
+
+function typeCharacter() {
+  if (currentLine >= lines.length) {
+    return; // All done
+  }
+
+  const text = lines[currentLine];
+  
+  // Create new paragraph for each line
+  if (currentChar === 0) {
+    currentP = document.createElement('p');
+    document.getElementById('letter').appendChild(currentP);
+  }
+
+  // Add next character
+  if (currentChar < text.length) {
+    currentP.textContent += text[currentChar];
+    currentChar++;
+    setTimeout(typeCharacter, 50); // 50ms per character
+  } else {
+    // Move to next line
+    currentLine++;
+    currentChar = 0;
+    setTimeout(typeCharacter, 800); // Pause between lines
+  }
+}
+</script>
+
+</body>
+</html>
