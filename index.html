@@ -240,8 +240,9 @@ h2{
 <body>
 
 <!-- 🎵 Background Music -->
-<audio id="bgMusic" loop>
-  <source src="./Kannukulla.mp3" type="audio/mpeg">
+<audio id="bgMusic" loop preload="auto">
+  <source src="Kannukulla.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
 
 <!-- Audio Control Button -->
@@ -462,22 +463,6 @@ function typeCharacter() {
     setTimeout(typeCharacter, 800); // Pause between lines
   }
 }
-</script>
-<script>
-const music = document.getElementById('bgMusic');
-music.volume = 0.4;
-
-// play ONLY after user interaction (required)
-function startMusic() {
-  music.play().then(() => {
-    console.log("Music started");
-  }).catch(err => {
-    console.log("Music blocked:", err);
-  });
-}
-
-// start music when user clicks anywhere
-document.addEventListener('click', startMusic, { once: true });
 </script>
 </body>
 </html>
