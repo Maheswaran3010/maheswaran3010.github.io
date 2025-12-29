@@ -241,7 +241,7 @@ h2{
 
 <!-- 🎵 Background Music -->
 <audio id="bgMusic" loop>
-  <source src="./Kannukulla%20(Reprise)%20-%20Sai%20Abhyankkar.mp3" type="audio/mpeg">
+  <source src="./Kannukulla.mp3" type="audio/mpeg">
 </audio>
 
 <!-- Audio Control Button -->
@@ -463,7 +463,23 @@ function typeCharacter() {
   }
 }
 </script>
+<script>
+const music = document.getElementById('bgMusic');
+music.volume = 0.4;
 
+// play ONLY after user interaction (required)
+function startMusic() {
+  music.play().then(() => {
+    console.log("Music started");
+  }).catch(err => {
+    console.log("Music blocked:", err);
+  });
+}
+
+// start music when user clicks anywhere
+document.addEventListener('click', startMusic, { once: true });
+</script>
 </body>
 </html>
+
 
