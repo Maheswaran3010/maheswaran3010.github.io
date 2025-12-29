@@ -426,12 +426,19 @@ let currentP = null;
 
 function startLetter(){
   // ✅ START MUSIC HERE (GUARANTEED TO WORK)
+  console.log('startLetter called');
+  console.log('Music element:', music);
+  console.log('Music source:', music.src);
+  console.log('Music volume:', music.volume);
+  
   music.play().then(() => {
+    console.log('✅ Music started successfully!');
     audioBtn.innerHTML = '🔊';
     audioBtn.style.background = 'var(--blue)';
     isPlaying = true;
   }).catch(e => {
-    console.log('Music play failed:', e);
+    console.error('❌ Music play failed:', e);
+    alert('Music Error: ' + e.message + '\n\nPlease check console (F12) for details.');
   });
 
   document.getElementById('loveGate').style.display = 'none';
