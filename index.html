@@ -425,16 +425,13 @@ let currentChar = 0;
 let currentP = null;
 
 function startLetter(){
-  // ✅ START MUSIC HERE (GUARANTEED TO WORK)
-  alert('About to play music...');
-  
+  // ✅ START MUSIC HERE
   music.play().then(() => {
-    alert('✅ SUCCESS! Music is playing!');
     audioBtn.innerHTML = '🔊';
     audioBtn.style.background = 'var(--blue)';
     isPlaying = true;
   }).catch(e => {
-    alert('❌ ERROR: Music failed!\n\n' + e.message + '\n\nTry clicking the speaker button 🔊');
+    console.log('Music play failed:', e);
   });
 
   document.getElementById('loveGate').style.display = 'none';
