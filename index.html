@@ -1,478 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Happy Birthday 🤍</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Patrick+Hand&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --accent:#262626;
-  --bg:#fafafa;
-  --card:#ffffff;
-  --text:#262626;
-  --muted:#8e8e8e;
-  --border:#dbdbdb;
-  --blue:#0095f6;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:'Inter',sans-serif;
-  background:var(--bg);
-  overflow-x:hidden;
-  position:relative;
-  color:var(--text);
-}
-
-/* ---------- Audio ---------- */
+:root{--accent:#262626;--bg:#fefef8;--card:#fff;--text:#262626;--muted:#8e8e8e;--border:#dbdbdb;--blue:#0095f6;--red:#ed4956;--pink:#ffc9d1;--cream:#f7f5eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Comic Neue',sans-serif;background:linear-gradient(135deg,#fefef8 0%,#f5f5ed 100%);background-attachment:fixed;overflow-x:hidden;color:var(--text);position:relative}
+body::before{content:'';position:fixed;inset:0;background-image:repeating-linear-gradient(90deg,transparent,transparent 1px,rgba(100,100,100,0.03) 1px,rgba(100,100,100,0.03) 2px),repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(100,100,100,0.05) 29px,rgba(100,100,100,0.05) 30px);pointer-events:none;z-index:1}
 audio{display:none}
-
-.audio-control{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:var(--blue);
-  color:white;
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow:0 4px 12px rgba(0,0,0,0.15);
-  z-index:1000;
-  font-size:1.3rem;
-  transition:all 0.3s;
-}
-
-.audio-control:hover{
-  transform:scale(1.1);
-  background:#1877f2;
-}
-
-/* ---------- Glass Card ---------- */
-.glass{
-  background:var(--card);
-  border-radius:8px;
-  padding:3rem 2.5rem;
-  box-shadow:0 2px 12px rgba(0,0,0,0.08);
-  position:relative;
-  border:1px solid var(--border);
-}
-
-/* ---------- Modal ---------- */
-.modal{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--bg);
-  z-index:100;
-}
-
-button{
-  border:none;
-  background:var(--blue);
-  color:white;
-  padding:.7rem 2rem;
-  border-radius:8px;
-  font-size:1rem;
-  font-weight:600;
-  cursor:pointer;
-  transition:all .2s;
-}
-
-button:hover{
-  background:#1877f2;
-}
-
-button:active{
-  transform:scale(0.98);
-}
-
-/* ---------- Romantic Popup ---------- */
-.popup{
-  position:fixed;
-  top:20%;
-  left:50%;
-  transform:translateX(-50%);
-  background:var(--card);
-  padding:1.5rem 2rem;
-  border-radius:12px;
-  box-shadow:0 8px 24px rgba(0,0,0,0.15);
-  display:none;
-  z-index:1000;
-  border:1px solid var(--border);
-  font-size:1rem;
-  color:var(--text);
-  text-align:center;
-  animation:slideDown 0.3s ease;
-}
-
-@keyframes slideDown{
-  from{opacity:0;transform:translate(-50%, -20px)}
-  to{opacity:1;transform:translate(-50%, 0)}
-}
-
-/* ---------- Hero ---------- */
-.hero{
-  min-height:30vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  position:relative;
-  z-index:1001;
-  padding:2rem 1rem;
-}
-
-.hero h1{
-  font-family:'Playfair Display',serif;
-  font-size:2.5rem;
-  color:var(--text);
-  margin:0;
-}
-
-.hero p{
-  font-size:1.1rem;
-  color:var(--muted);
-  margin-top:0.5rem;
-}
-
-/* ---------- Letter ---------- */
-#letter{
-  position:relative;
-  z-index:1001;
-  max-width:700px;
-  margin:0 auto 3rem;
-  padding:2rem;
-  background:var(--card);
-  border-radius:8px;
-  border:1px solid var(--border);
-  box-shadow:0 2px 12px rgba(0,0,0,0.08);
-}
-
-#letter p{
-  line-height:1.8;
-  margin-bottom:1.5rem;
-  font-size:1.05rem;
-  color:var(--text);
-}
-
-/* Typewriter cursor */
-.typing-cursor{
-  display:inline-block;
-  width:2px;
-  height:1.2em;
-  background:var(--text);
-  margin-left:2px;
-  animation:blink 1s infinite;
-  vertical-align:text-bottom;
-}
-
-@keyframes blink{
-  0%,49%{opacity:1}
-  50%,100%{opacity:0}
-}
-
-h2{
-  font-family:'Playfair Display',serif;
-  font-size:1.8rem;
-  color:var(--text);
-  margin:0 0 1.5rem 0;
-}
-
-/* ---------- Question ---------- */
-#question{
-  text-align:center;
-}
-
-#noBtn{
-  position:absolute;
-  background:#ed4956;
-  pointer-events:none;
-  cursor:not-allowed;
-}
-
-#noBtn:hover{
-  background:#c13584;
-  transform:scale(0.95);
-}
-
-/* ---------- Floating Words ---------- */
-.floating-word{
-  position:fixed;
-  font-size:20px;
-  font-weight:600;
-  opacity:0.7;
-  pointer-events:none;
-  z-index:999;
-  color:#ff6b9d;
-  text-shadow:0 2px 4px rgba(0,0,0,0.1);
-  animation:floatUp 8s linear forwards;
-}
-
-@keyframes floatUp{
-  0%{
-    transform:translateY(0);
-    opacity:0.7;
-  }
-  50%{
-    opacity:0.9;
-  }
-  100%{
-    transform:translateY(-100vh);
-    opacity:0;
-  }
-}
+.audio-control{position:fixed;bottom:20px;right:20px;background:var(--red);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(237,73,86,0.4),inset 0 -2px 8px rgba(0,0,0,0.1);z-index:1000;font-size:1.4rem;transition:all .3s;border:3px solid #fff;font-family:'Comic Neue',sans-serif}
+.audio-control:hover{transform:scale(1.15) rotate(5deg);box-shadow:0 6px 20px rgba(237,73,86,0.6)}
+.glass{background:var(--card);border-radius:20px;padding:3rem 2.5rem;box-shadow:0 8px 24px rgba(38,38,38,0.15),inset 0 1px 0 rgba(255,255,255,0.8);border:3px solid var(--text);position:relative;font-family:'Patrick Hand',cursive}
+.glass::before{content:'';position:absolute;top:-3px;left:10px;right:10px;height:3px;background:var(--text);border-radius:2px}
+.glass::after{content:'';position:absolute;left:-3px;top:10px;bottom:10px;width:3px;background:var(--text);border-radius:2px}
+.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(254,254,248,0.97) 0%,rgba(245,245,237,0.97) 100%);z-index:100;backdrop-filter:blur(3px)}
+button{border:3px solid var(--text);background:var(--blue);color:#fff;padding:.8rem 2.2rem;border-radius:25px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Comic Neue',sans-serif;box-shadow:0 4px 0 var(--text),0 6px 12px rgba(0,0,0,0.2);position:relative;text-transform:uppercase;letter-spacing:0.5px}
+button:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--text),0 8px 16px rgba(0,0,0,0.25)}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 var(--text),0 3px 8px rgba(0,0,0,0.2)}
+.popup{position:fixed;top:20%;left:50%;transform:translateX(-50%);background:var(--card);padding:1.8rem 2.5rem;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.2);display:none;z-index:1000;border:3px dashed var(--text);text-align:center;animation:popIn .4s cubic-bezier(0.68,-0.55,0.265,1.55);font-family:'Patrick Hand',cursive;font-size:1.1rem}
+@keyframes popIn{0%{opacity:0;transform:translate(-50%,-40px) scale(0.8)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes slideDown{from{opacity:0;transform:translate(-50%,-20px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes floatUp{0%{transform:translateY(0);opacity:0.2}50%{opacity:0.35}100%{transform:translateY(-100vh);opacity:0}}
+@keyframes openLetter{0%{transform:rotateX(0deg) scale(1)}50%{transform:rotateX(90deg) scale(0.95)}100%{transform:rotateX(0deg) scale(1)}}
+@keyframes wiggle{0%{transform:rotate(0deg)}25%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}75%{transform:rotate(-5deg)}100%{transform:rotate(0deg)}}
+@keyframes heartBeatSmall{0%,100%{transform:scale(1)}25%{transform:scale(1.3)}50%{transform:scale(0.85)}75%{transform:scale(1.15)}}
+@keyframes slideInDown{from{opacity:0;transform:translateY(-40px) scale(0.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes strokeRotate{from{stroke-dashoffset:282.7}to{stroke-dashoffset:0}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(0.3)}50%{opacity:1;transform:scale(1.05)}70%{transform:scale(0.9)}100%{transform:scale(1)}}
+@keyframes mailBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.letter-opening{animation:openLetter 1.5s ease-in-out;transform-origin:center}
+.mail-icon{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);font-size:8rem;cursor:pointer;animation:mailBounce 2s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(0,0,0,0.2));transition:all .3s;z-index:2000}
+.mail-icon:hover{transform:translate(-50%,-50%) scale(1.1);filter:drop-shadow(0 12px 24px rgba(0,0,0,0.3))}
+.mail-badge{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;font-weight:700;border:4px solid #fff;box-shadow:0 4px 12px rgba(237,73,86,0.5);animation:badgePulse 1.5s infinite;font-family:'Comic Neue',sans-serif;cursor:pointer}
+.mail-badge:hover{transform:scale(1.3);box-shadow:0 6px 16px rgba(237,73,86,0.7)}
+.comic-opening{position:fixed;inset:0;background:linear-gradient(135deg,rgba(254,254,248,0.98) 0%,rgba(245,245,237,0.98) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2500;font-family:'Patrick Hand',cursive}
+.opening-envelope{font-size:6rem;animation:wiggle 1s infinite;margin-bottom:1.5rem}
+.opening-text{font-size:2rem;font-weight:700;color:var(--text);text-shadow:2px 2px 0 rgba(237,73,86,0.2)}
+.mini-heart-loader{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2000;display:flex;align-items:center;justify-content:center;width:160px;height:160px}
+.heart-svg{width:100%;height:100%;filter:drop-shadow(0 4px 12px rgba(237,73,86,0.4))}
+.heart-circle{fill:none;stroke:var(--red);stroke-width:4;stroke-dasharray:282.7;stroke-dashoffset:282.7;animation:strokeRotate 1.5s ease-out forwards;stroke-linecap:round}
+.heart-emoji{position:absolute;font-size:3.5rem;animation:heartBeatSmall 1.2s infinite;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2))}
+.love-message{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1999;background:var(--card);padding:2.5rem 3rem;border-radius:20px;box-shadow:0 12px 40px rgba(0,0,0,0.25);max-width:520px;text-align:center;animation:bounceIn 0.7s cubic-bezier(0.68,-0.55,0.265,1.55);border:3px solid var(--text);font-family:'Patrick Hand',cursive}
+.love-message p{font-size:1.25rem;line-height:1.9;color:var(--text);margin:0;font-weight:600}
+.letter-clickable{cursor:pointer;transition:all .3s;animation:bounceIn .8s ease}
+.letter-clickable:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 12px 32px rgba(0,149,246,0.3)}
+.hero{min-height:30vh;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1001;padding:2rem 1rem;animation:slideInDown .6s ease}
+.hero h1{font-family:'Playfair Display',serif;font-size:3rem;margin:0;color:var(--text);text-shadow:2px 2px 0 rgba(237,73,86,0.2);position:relative}
+.hero h1::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:60px;height:3px;background:var(--red);border-radius:2px}
+.hero p{font-size:1.2rem;color:var(--muted);margin-top:1.5rem;font-family:'Patrick Hand',cursive;font-weight:600}
+#letter{position:relative;z-index:1001;max-width:720px;margin:0 auto 3rem;padding:2.5rem;background:var(--card);border-radius:20px;border:3px dashed var(--text);box-shadow:0 8px 24px rgba(0,0,0,0.15);font-family:'Patrick Hand',cursive;display:none}
+#letter.show{display:block}
+#letter p{line-height:2;margin-bottom:1.8rem;font-size:1.15rem;letter-spacing:0.3px;color:var(--text)}
+h2{font-family:'Comic Neue',sans-serif;font-size:2rem;margin:0 0 2rem;font-weight:700;color:var(--text);text-shadow:2px 2px 0 rgba(0,149,246,0.1)}
+#question{text-align:center}
+#noBtn{position:absolute;background:var(--red);border:3px solid var(--text);box-shadow:0 4px 0 var(--text);pointer-events:auto;transition:all .15s}
+#noBtn:hover{background:#c13584;transform:translateY(-2px);box-shadow:0 6px 0 var(--text)}
+.floating-word{position:fixed;font-size:20px;font-weight:700;opacity:0.28;pointer-events:none;z-index:50;color:var(--text);text-shadow:1px 1px 2px rgba(255,255,255,0.8);animation:floatUp 12s linear forwards;font-family:'Patrick Hand',cursive}
+#tabContainer{position:relative;z-index:1001;animation:slideInDown .7s ease}
 </style>
 </head>
-
 <body>
-
-<!-- 🎵 Background Music -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="Kannukulla.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-<!-- Audio Control Button -->
-<div class="audio-control" id="audioBtn" onclick="toggleAudio()" title="Play/Pause Music">🔊</div>
-
-<!-- Romantic Popup -->
+<audio id="bgMusic" loop preload="auto"><source src="Kannukulla.mp3" type="audio/mpeg"></audio>
+<div class="audio-control" id="audioBtn" onclick="toggleAudio()" title="Play/Pause Music">🎵</div>
 <div id="popup" class="popup"></div>
-
-<!-- LOGIN -->
 <div class="modal" id="login">
-  <div class="glass">
-    <h2 style="font-family:'Playfair Display'">Who are you?</h2>
-    <br>
-    <button onclick="login('Nayana')">Nayana</button>
-    <button onclick="login('Papu')">Papu</button>
-  </div>
+<div class="glass" style="animation:bounceIn .8s cubic-bezier(0.68,-0.55,0.265,1.55)">
+<h2 style="position:relative;display:inline-block">Who are you? 🤔<span style="position:absolute;top:-15px;right:-25px;font-size:2rem;animation:wiggle 2s infinite">✨</span></h2>
+<br><br>
+<button onclick="login('Nayana')" style="margin-right:1.5rem">Nayana</button>
+<button onclick="login('Papu')">Papu</button>
 </div>
-
-<!-- QUESTION -->
+</div>
 <div class="modal" id="loveGate" style="display:none">
-  <div class="glass" id="question">
-    <h2 style="font-family:'Playfair Display'">Do you still love me?</h2><br>
-    <button onclick="startLetter()">Yes 🤍</button>
-    <button id="noBtn">No</button>
-  </div>
+<div class="glass" id="question" style="animation:bounceIn .8s cubic-bezier(0.68,-0.55,0.265,1.55)">
+<h2 style="position:relative">Do you still love me? 💕</h2>
+<br>
+<button onclick="startLetter()" style="background:var(--red);animation:heartBeatSmall 2s infinite">Yes 🤍</button>
+<button id="noBtn" style="margin-left:1rem">No</button>
 </div>
-
-<!-- MAIN -->
+</div>
 <section class="hero" id="hero" style="display:none">
-  <div>
-    <h1>Happy Birthday 🤍</h1>
-    <p>A letter meant only for you</p>
-  </div>
+<div>
+<h1>Happy Birthday 🤍</h1>
+<p>A letter meant only for you</p>
+</div>
 </section>
-
-<section id="letter" style="display:none"></section>
+<div id="tabContainer" style="display:none">
+<section id="letter"></section>
+</div>
 
 <script>
-const popup = document.getElementById('popup');
-const music = document.getElementById('bgMusic');
-const audioBtn = document.getElementById('audioBtn');
-let isPlaying = false;
-
-// Set volume to maximum
-music.volume = 1.0;
-
-// Toggle audio function
-function toggleAudio() {
-  if (isPlaying) {
-    music.pause();
-    audioBtn.innerHTML = '🔇';
-    audioBtn.style.background = '#8e8e8e';
-    isPlaying = false;
-  } else {
-    music.play().then(() => {
-      audioBtn.innerHTML = '🔊';
-      audioBtn.style.background = 'var(--blue)';
-      isPlaying = true;
-    }).catch(e => {
-      console.log('Audio play failed:', e);
-      alert('Please click the speaker icon to play music');
-    });
-  }
-}
-
-// Try to autoplay when user interacts
-function attemptAutoplay() {
-  music.play().then(() => {
-    audioBtn.innerHTML = '🔊';
-    audioBtn.style.background = 'var(--blue)';
-    isPlaying = true;
-  }).catch(e => {
-    console.log('Autoplay prevented - user can click speaker icon');
-    audioBtn.innerHTML = '🔇';
-    audioBtn.style.background = '#8e8e8e';
-  });
-}
-
-function showPopup(text){
-  popup.innerHTML = text;
-  popup.style.display = 'block';
-  setTimeout(() => popup.style.display = 'none', 2500);
-}
-
-function login(name){
-  startFloatingWords(); // Start romantic words animation
-
-  if(name === 'Nayana'){
-    showPopup("Oh no… you don't need to be treated as special,<br>you already are 🤍");
-    return;
-  } else {
-    showPopup("Some names never fade…<br>they stay in the heart 💗");
-  }
-
-  setTimeout(() => {
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('loveGate').style.display = 'flex';
-  }, 1800);
-}
-
-/* Floating romantic words */
-const romanticWords = [
-  '❤️ Love', '💖 Forever', '✨ uiree', '🌹 Romance', '💕 Together',
-  '🌟 Dreams', '💗 Memories', '🤍 Pure', '💫 Papu', '🌺 Noodles mandai',
-  '💝 Thoppai kutty', '🎀 Poonai', '🌸 chellam', '💞 Hearts'
-];
-
-let floatingInterval;
-
-function createFloatingWord() {
-  const word = document.createElement('div');
-  word.className = 'floating-word';
-  word.textContent = romanticWords[Math.floor(Math.random() * romanticWords.length)];
-  
-  // Random horizontal position
-  word.style.left = Math.random() * 90 + 'vw';
-  
-  // Start from bottom
-  word.style.bottom = '-50px';
-  
-  // Random animation duration
-  word.style.animationDuration = (6 + Math.random() * 4) + 's';
-  
-  // Random font size
-  word.style.fontSize = (16 + Math.random() * 12) + 'px';
-  
-  document.body.appendChild(word);
-  
-  // Remove after animation
-  setTimeout(() => word.remove(), 10000);
-}
-
-function startFloatingWords() {
-  // Create words every 600ms
-  floatingInterval = setInterval(createFloatingWord, 600);
-}
-
-/* Runaway NO button - can never be clicked */
-const noBtn = document.getElementById('noBtn');
-
-// Prevent any click on No button
-noBtn.addEventListener('click', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  return false;
-});
-
-// Make it run away on mouse move
-document.addEventListener('mousemove', e => {
-  const r = noBtn.getBoundingClientRect();
-  if(Math.abs(e.clientX - (r.left + r.width/2)) < 120){
-    noBtn.style.left = Math.random() * 300 + 'px';
-    noBtn.style.top = Math.random() * 150 + 'px';
-  }
-});
-
-// Make it run away on touch (mobile)
-noBtn.addEventListener('touchstart', (e) => {
-  e.preventDefault();
-  noBtn.style.left = Math.random() * 300 + 'px';
-  noBtn.style.top = Math.random() * 150 + 'px';
-});
-
-/* Letter - Character-by-character typewriter effect */
-const lines = [
-  "We started as friends, and we ended as friends 🤍",
-  "All those years, we assured and cared for our future goals, and in that process, we lost our gift—the present 🎁",
-  "I am happy that we still care for each other, and I hope we still hold the same priority in each other's lives 🌱",
-  "Our nicknames, our fights, and our favorite spot will always remain in my memories of you 📍",
-  "It's been more than three years. We moved on in our separate ways, but I still wonder how we got separated so soon ⏳",
-  "My words and actions were never meant to hurt you. That was my way of love—what I knew, what I saw, what I learned. It may have been wrong 💭",
-  "We can question ourselves a thousand times about why it happened. Maybe the answer is that it had to happen—to teach us how true love looks and feels ❤️",
-  "One thing is certain: I will always be with you. I will care for you, console you, and wish that you are successful in life and lead a happy one 🤗",
-  "I wish you a bright future, a healthy life, and a romantic partner who will walk with you toward the best future ahead ✨",
-  "Happy Birthday 🎉"
-];
-
-let currentLine = 0;
-let currentChar = 0;
-let currentP = null;
-
-function startLetter(){
-  // ✅ START MUSIC HERE
-  music.play().then(() => {
-    audioBtn.innerHTML = '🔊';
-    audioBtn.style.background = 'var(--blue)';
-    isPlaying = true;
-  }).catch(e => {
-    console.log('Music play failed:', e);
-  });
-
-  document.getElementById('loveGate').style.display = 'none';
-  document.getElementById('hero').style.display = 'flex';
-  document.getElementById('letter').style.display = 'block';
-
-  const el = document.getElementById('letter');
-  el.innerHTML = '';
-  currentLine = 0;
-  currentChar = 0;
-  
-  typeCharacter();
-}
-
-function typeCharacter() {
-  if (currentLine >= lines.length) {
-    return; // All done
-  }
-
-  const text = lines[currentLine];
-  
-  // Create new paragraph for each line
-  if (currentChar === 0) {
-    currentP = document.createElement('p');
-    document.getElementById('letter').appendChild(currentP);
-  }
-
-  // Add next character
-  if (currentChar < text.length) {
-    currentP.textContent += text[currentChar];
-    currentChar++;
-    setTimeout(typeCharacter, 50); // 50ms per character
-  } else {
-    // Move to next line
-    currentLine++;
-    currentChar = 0;
-    setTimeout(typeCharacter, 800); // Pause between lines
-  }
-}
+const popup=document.getElementById('popup'),music=document.getElementById('bgMusic'),audioBtn=document.getElementById('audioBtn'),noBtn=document.getElementById('noBtn');
+let isPlaying=false,currentLine=0,currentChar=0,currentP=null,floatingInterval,letterOpened=false;
+music.volume=1.0;
+const romanticWords=['❤️ Love','💖 Forever','✨ uiree','🌹 Romance','💕 Together','🌟 Dreams','💗 Memories','🤍 Pure','💫 Papu','🌺 Noodles mandai','💝 Thoppai kutty','🎀 Poonai','🌸 chellam','💞 Hearts'];
+const lines=["We started as friends, and we ended as friends 🤍","All those years, we assured and cared for our future goals, and in that process, we lost our gift—the present 🎁","I am happy that we still care for each other, and I hope we still hold the same priority in each other's lives 🌱","Our nicknames, our fights, and our favorite spot will always remain in my memories of you 📍","It's been more than three years. We moved on in our separate ways, but I still wonder how we got separated so soon ⏳","My words and actions were never meant to hurt you. That was my way of love—what I knew, what I saw, what I learned. It may have been wrong 💭","We can question ourselves a thousand times about why it happened. Maybe the answer is that it had to happen—to teach us how true love looks and feels ❤️","One thing is certain: I will always be with you. I will care for you, console you, and wish that you are successful in life and lead a happy one 🤗","I wish you a bright future, a healthy life, and a romantic partner who will walk with you toward the best future ahead ✨","Happy Birthday 🎉"];
+function toggleAudio(){isPlaying?(music.pause(),audioBtn.innerHTML='🔇',audioBtn.style.background='#8e8e8e',isPlaying=false):music.play().then(()=>{audioBtn.innerHTML='🎵';audioBtn.style.background='var(--red)';isPlaying=true}).catch(e=>alert('Please click the speaker icon to play music'))}
+function showPopup(t){popup.innerHTML=t;popup.style.display='block';setTimeout(()=>popup.style.display='none',2800)}
+function login(n){startFloatingWords();showPopup(n==='Nayana'?"Oh no… you don't need to be treated as special,<br>you already are 🤍":"Some names never fade…<br>they stay in the heart 💗");setTimeout(()=>{document.getElementById('login').style.display='none';document.getElementById('loveGate').style.display='flex'},1800)}
+function createFloatingWord(){const w=document.createElement('div');w.className='floating-word';w.textContent=romanticWords[Math.floor(Math.random()*romanticWords.length)];w.style.left=Math.random()*90+'vw';w.style.bottom='-50px';w.style.animationDuration=(6+Math.random()*4)+'s';w.style.fontSize=(16+Math.random()*12)+'px';document.body.appendChild(w);setTimeout(()=>w.remove(),10000)}
+function startFloatingWords(){floatingInterval=setInterval(createFloatingWord,600)}
+let noBtnX=0,noBtnY=0,canClickNo=true;
+noBtn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();return false});
+function moveNoButton(){if(!canClickNo)return;const questionBox=document.getElementById('question').getBoundingClientRect();const maxX=questionBox.width-noBtn.offsetWidth;const maxY=questionBox.height-noBtn.offsetHeight;noBtnX=Math.min(noBtnX+80,maxX);noBtnY=Math.min(noBtnY+40,maxY);noBtn.style.left=noBtnX+'px';noBtn.style.top=noBtnY+'px';if(noBtnX>=maxX-10||noBtnY>=maxY-10){noBtn.style.opacity='0';noBtn.style.pointerEvents='none';canClickNo=false}}
+noBtn.addEventListener('mouseenter',moveNoButton);
+noBtn.addEventListener('touchstart',e=>{e.preventDefault();moveNoButton()});
+document.getElementById('question').addEventListener('mousemove',e=>{const r=noBtn.getBoundingClientRect();const distance=Math.sqrt(Math.pow(e.clientX-(r.left+r.width/2),2)+Math.pow(e.clientY-(r.top+r.height/2),2));if(distance<150&&canClickNo)moveNoButton()});
+function startLetter(){music.play().then(()=>{audioBtn.innerHTML='🎵';audioBtn.style.background='var(--red)';isPlaying=true}).catch(e=>console.log('Music play failed:',e));document.getElementById('loveGate').style.display='none';document.getElementById('hero').style.display='flex';const mailIcon=document.createElement('div');mailIcon.className='mail-icon';mailIcon.innerHTML='✉️<div class="mail-badge"></div>';mailIcon.querySelector('.mail-badge').onclick=openLetter;mailIcon.querySelector('.mail-badge').innerHTML='1';document.body.appendChild(mailIcon)}
+function openLetter(e){if(e)e.stopPropagation();if(letterOpened)return;letterOpened=true;document.querySelector('.mail-icon').remove();const opening=document.createElement('div');opening.className='comic-opening';opening.innerHTML='<div class="opening-envelope">✉️</div><div class="opening-text">Opening the letter…</div>';document.body.appendChild(opening);setTimeout(()=>{opening.remove();const el=document.getElementById('letter');el.classList.add('show','letter-opening');document.getElementById('tabContainer').style.display='block';setTimeout(()=>{el.classList.remove('letter-opening');typeCharacter()},1500)},1800)}
+function typeCharacter(){if(currentLine>=lines.length)return;const t=lines[currentLine];if(currentChar===0){currentP=document.createElement('p');document.getElementById('letter').appendChild(currentP)}if(currentChar<t.length){currentP.textContent+=t[currentChar];currentChar++;setTimeout(()=>document.getElementById('letter').scrollIntoView({behavior:'smooth',block:'nearest'}),10);setTimeout(typeCharacter,100)}else{currentLine++;currentChar=0;setTimeout(typeCharacter,800)}}
 </script>
 </body>
 </html>
-
-
