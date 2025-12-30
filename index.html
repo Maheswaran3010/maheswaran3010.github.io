@@ -64,13 +64,10 @@ h2{font-family:'Comic Neue',sans-serif;font-size:2rem;margin:0 0 2rem;font-weigh
 .movie-link{display:inline-flex;align-items:center;gap:.5rem;background:var(--red);color:#fff;padding:.8rem 1.8rem;border-radius:25px;border:3px solid var(--text);box-shadow:0 4px 0 var(--text),0 6px 12px rgba(0,0,0,0.2);text-decoration:none;font-size:1.1rem;font-weight:700;cursor:pointer;transition:all .3s;margin-top:1rem;font-family:'Comic Neue',sans-serif;animation:bounceIn .8s ease}
 .movie-link:hover{transform:translateY(-3px);box-shadow:0 6px 0 var(--text),0 8px 16px rgba(0,0,0,0.25)}
 .movie-link:active{transform:translateY(2px);box-shadow:0 2px 0 var(--text),0 3px 8px rgba(0,0,0,0.2)}
-.video-player{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:3000;display:none;align-items:center;justify-content:center;animation:fadeIn .4s ease}
-.video-player.show{display:flex}
+.video-inline{display:none;width:100%;margin-top:2rem;border-radius:12px;overflow:hidden;border:3px solid var(--text);box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:bounceIn .8s ease}
+.video-inline.show{display:block}
+.video-inline video{width:100%;height:auto;display:block;background:#000}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.video-container{position:relative;width:90%;max-width:1200px;background:#000;border-radius:12px;overflow:hidden;border:3px solid var(--text);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
-.video-container video{width:100%;height:auto;display:block}
-.close-video{position:absolute;top:10px;right:10px;background:var(--red);color:#fff;width:45px;height:45px;border-radius:50%;border:3px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.5rem;font-weight:700;z-index:10;transition:all .3s;box-shadow:0 4px 12px rgba(0,0,0,0.4)}
-.close-video:hover{transform:scale(1.1) rotate(90deg);background:#c13584}
 @media(max-width:768px){
 .glass{padding:2rem 1.5rem;font-size:0.95rem}
 .hero h1{font-size:2rem}
@@ -87,8 +84,6 @@ button{padding:0.7rem 1.5rem;font-size:0.95rem}
 .audio-control{width:50px;height:50px;font-size:1.2rem;bottom:15px;right:15px}
 .popup{padding:1.5rem 2rem;font-size:1rem;max-width:85%}
 .floating-word{font-size:16px}
-.video-container{width:95%;border-radius:8px}
-.close-video{width:40px;height:40px;font-size:1.3rem;top:5px;right:5px}
 }
 @media(max-width:480px){
 .glass{padding:1.5rem 1rem}
@@ -105,8 +100,6 @@ button{padding:0.6rem 1.2rem;font-size:0.85rem;margin:0.3rem}
 .movie-link{padding:0.6rem 1.2rem;font-size:0.9rem}
 .audio-control{width:45px;height:45px;font-size:1.1rem}
 .popup{padding:1.2rem 1.5rem;font-size:0.9rem}
-.video-container{width:98%}
-.close-video{width:35px;height:35px;font-size:1.2rem}
 }
 </style>
 </head>
@@ -139,20 +132,11 @@ button{padding:0.6rem 1.2rem;font-size:0.85rem;margin:0.3rem}
 <div id="tabContainer" style="display:none">
 <section id="letter"></section>
 </div>
-<div id="videoPlayer" class="video-player">
-<div class="video-container">
-<div class="close-video" onclick="closeVideo()">×</div>
-<video id="videoElement" controls autoplay muted>
-<source src="memories.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video>
-</div>
-</div>
 
 <script>
 const popup=document.getElementById('popup'),music=document.getElementById('bgMusic'),audioBtn=document.getElementById('audioBtn'),noBtn=document.getElementById('noBtn');
 let isPlaying=false,currentLine=0,currentChar=0,currentP=null,floatingInterval,letterOpened=false;
-music.volume=0.2;
+music.volume=0.5;
 const romanticWords=['❤️ Love','💖 Forever','✨ uiree','🌹 Romance','💕 Together','🌟 Dreams','💗 Memories','🤍 Pure','💫 Papu','🌺 Noodles mandai','💝 Thoppai kutty','🎀 Poonai','🌸 chellam','💞 Hearts'];
 const lines=["My dear Belly,","We started as friends, and in the end, we remained friends 🤍","Over the years, while dreaming about tomorrow, we forgot to live in today—and quietly, we lost it 🎁","Even now, there's a quiet warmth in my heart when I think of you, and I hope we always hold a small, special place in each other's lives 🌱","Our nicknames, our silly fights, and our favorite spot still feel alive in my memories, as if they never really left 📍","It's been more than three years now. We moved forward on our own paths, yet sometimes my heart still wonders how we drifted apart so soon ⏳","I never meant to hurt you. I loved you the only way I knew how back then—imperfect, quiet, and perhaps misunderstood 💭","Do you remember the panda I gave you when you left for Chennai? He still seems to miss you. We really did quite a little circus just to win him and send him along with you 🐼","Maybe it all happened so we could understand what love really means—not just holding on, but also knowing when to let go ❤️","No matter where life takes us, I'll always wish you warmth, peace, and moments that make you smile without trying 🤗","I hope love finds you gently—like it once found us—and stays kind to you ✨","Wishing you a very happy birthday 🎉","— your beloved Conrad"];
 function toggleAudio(){isPlaying?(music.pause(),audioBtn.innerHTML='🔇',audioBtn.style.background='#8e8e8e',isPlaying=false):music.play().then(()=>{audioBtn.innerHTML='🎵';audioBtn.style.background='var(--red)';isPlaying=true}).catch(e=>alert('Please click the speaker icon to play music'))}
@@ -170,8 +154,7 @@ function startLetter(){music.play().then(()=>{audioBtn.innerHTML='🎵';audioBtn
 function openLetter(e){if(e)e.stopPropagation();if(letterOpened)return;letterOpened=true;document.querySelector('.mail-icon').remove();const opening=document.createElement('div');opening.className='comic-opening';opening.innerHTML='<div class="opening-envelope">✉️</div><div class="opening-text">Opening the letter…</div>';document.body.appendChild(opening);setTimeout(()=>{opening.remove();const el=document.getElementById('letter');el.classList.add('show','letter-opening');document.getElementById('tabContainer').style.display='block';setTimeout(()=>{el.classList.remove('letter-opening');typeCharacter()},1500)},1800)}
 function typeCharacter(){if(currentLine>=lines.length){addMovieLink();return}const t=lines[currentLine];if(currentChar===0){currentP=document.createElement('p');document.getElementById('letter').appendChild(currentP)}if(currentChar<t.length){currentP.textContent+=t[currentChar];currentChar++;setTimeout(()=>document.getElementById('letter').scrollIntoView({behavior:'smooth',block:'nearest'}),10);setTimeout(typeCharacter,100)}else{currentLine++;currentChar=0;setTimeout(typeCharacter,800)}}
 function addMovieLink(){const link=document.createElement('a');link.className='movie-link';link.innerHTML='🎬 Watch Our Memories';link.onclick=playVideo;const linkContainer=document.createElement('p');linkContainer.style.textAlign='center';linkContainer.appendChild(link);document.getElementById('letter').appendChild(linkContainer)}
-function playVideo(){const videoEl=document.getElementById('videoElement');document.getElementById('videoPlayer').classList.add('show');videoEl.play();videoEl.onended=function(){closeVideo()}}
-function closeVideo(){document.getElementById('videoPlayer').classList.remove('show');document.getElementById('videoElement').pause();document.getElementById('videoElement').currentTime=0}
+function playVideo(){const videoContainer=document.createElement('div');videoContainer.className='video-inline';videoContainer.id='inlineVideo';const videoEl=document.createElement('video');videoEl.controls=true;videoEl.muted=true;videoEl.style.width='100%';const source=document.createElement('source');source.src='memories.mp4';source.type='video/mp4';videoEl.appendChild(source);videoContainer.appendChild(videoEl);document.getElementById('letter').appendChild(videoContainer);setTimeout(()=>{videoContainer.classList.add('show');videoEl.play()},100)}
 </script>
 </body>
 </html>
